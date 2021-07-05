@@ -5,12 +5,7 @@ class Menu extends Phaser.Scene {
 
     preload() {
         // load audio
-        this.load.audio('sfx_select', './assets/sfx_select.wav');
-        this.load.audio('sfx_explosion', './assets/sfx_explosion.wav');
-        this.load.audio('sfx_rocket', './assets/sfx_rocket.wav');
-
-        this.load.audio('sfx_eat', './assets/sfx_eat.wav');
-        this.load.audio('sfx_digup', './assets/sfx_digup.wav');
+        //this.load.audio('sfx_select', './assets/sfx_select.wav');
     }
 
     create() {
@@ -27,34 +22,34 @@ class Menu extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'MOLE PATROL', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2, 'Use <--> arrows to move & (F) to fire', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Grog Run', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2, 'Use the UP and DOWN arrows to jump and dive', menuConfig).setOrigin(0.5);
         menuConfig.backgroundColor = '#00FF00';
         menuConfig.color = '#000'
-        this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press <- for Novice or -> for Expert', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press /\ for Novice or \/ for Expert', menuConfig).setOrigin(0.5);
         
         // define keys
-        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
     }
 
     update() {
-        if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+        if (Phaser.Input.Keyboard.JustDown(keyUP)) {
           // easy mode
           game.settings = {
             foodSpeed: 3,
             gameTimer: 60    
           }
-          this.sound.play('sfx_select');
+          //this.sound.play('sfx_select');
           this.scene.start('playScene');    
         }
-        if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+        if (Phaser.Input.Keyboard.JustDown(keyDOWN)) {
           // hard mode
           game.settings = {
             foodSpeed: 4,
             gameTimer: 45    
           }
-          this.sound.play('sfx_select');
+          //this.sound.play('sfx_select');
           this.scene.start('playScene');    
         }
     }
