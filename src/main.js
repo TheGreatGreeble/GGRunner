@@ -1,3 +1,9 @@
+/*
+
+(Evan Lake, Alex Rugama, Mel Morris) Grog Run, 7/6/21, All artwork was made by team members, including animation and sound effects with the exception of the background music
+
+*/
+
 let config = {
     type: Phaser.CANVAS,
     width: 640,
