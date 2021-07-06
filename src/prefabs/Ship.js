@@ -6,10 +6,14 @@ class Ship extends Phaser.GameObjects.Sprite {
         //add object to scene
         scene.add.existing(this);
         this.hasControl = true;
+        this.SKIM = 0;
+        this.JUMP = 1;
+        this.DIVE = 2;
+        this.action = this.SKIM;
 
-        this.maxHeight = maxHeight
-        this.moveSpeed = 3;
-        this.gravity = 1;
+        this.maxHeight = maxHeight;
+        this.moveSpeed = 6;
+        this.gravity = 3;
         this.molesheet = texture;
         this.startHeight = y;
         /*
@@ -24,73 +28,46 @@ class Ship extends Phaser.GameObjects.Sprite {
     }
 
     update() {
-        if (this.y < this.startHeight - this.maxHeight || this.y > this.startHeight + this.maxHeight) {
-            this.hasControl = false;
-        } else if (this.y = this.startHeight) {
-            this.hasControl = true;
-        }
 
         let velocity = 0;
         console.log(velocity);
 
-        if (keyDOWN.isDown && this.hasControl) {
-            velocity += this.moveSpeed;
-        } else if (keyUP.isDown && this.hasControl) {
-            velocity -= this.moveSpeed;
+        //Input
+        if (Phaser.Input.Keyboard.JustDown(keyUP) && this.action == this.SKIM) {
+            this.action = this.JUMP;
+        } else if (Phaser.Input.Keyboard.JustDown(keyDOWN) && this.action == this.SKIM) {
+            this.action = this.DIVE;
         }
 
-        if (this.y > this.startHeight) {
-            console.log("gravity");
-            velocity -= this.gravity;
-        } else if (this.y < this.startHeight) {
-            velocity += this.gravity;
-            console.log("gravity");
-        }
-
-        this.y += velocity;
-        /*
-        //left/right movement
-        if (!this.isFiring) {
-            if (keyLEFT.isDown && this.x >= borderUISize + this.width) {
-                this.x -= this.moveSpeed;
-            } else if (keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width) {
-                this.x += this.moveSpeed;
+        if (this.action == this.JUMP) {
+            if (Phaser.Input.Keyboard.JustUp(keyUP)) {
+                this.hasControl = false;
+            }
+            if (keyUP.isDown && this.hasControl) {
+                velocity -= this.moveSpeed;    
+            }
+        } else if (this.action == this.DIVE) {
+            if (Phaser.Input.Keyboard.JustUp(keyDOWN)) {
+                this.hasControl = false;
+            }
+            if (keyDOWN.isDown && this.hasControl) {
+                velocity += this.moveSpeed;    
             }
         }
 
-        //fire button
-        if(Phaser.Input.Keyboard.JustDown(keyF) && !this.isFiring) {
-            this.isFiring = true;
-            this.sfxRocket.play();
-            this.anims.remove('mole_side');
-            this.anims.create({
-                key: 'mole_up',
-                frames: this.anims.generateFrameNumbers(this.molesheet,{start: 4, end: 7, first: 4}),
-                frameRate: 4,
-                repeat: -1
-            });
-            this.anims.play('mole_up');
+        if (this.y > this.startHeight) {
+            console.log("gravity -");
+            velocity -= this.gravity;
+        } else if (this.y < this.startHeight) {
+            velocity += this.gravity;
+            console.log("gravity +");
         }
-        //if fired, move up
-        if(this.isFiring && this.y >= borderUISize * 3 + borderPadding) {
-            this.y -= this.moveSpeed;
+        this.y += velocity;
+
+        if (this.y == this.startHeight) {
+            this.action = this.SKIM;
+            this.hasControl = true;
         }
-        // reset on miss
-        if(this.y <= borderUISize * 3 + borderPadding) {
-            this.isFiring = false;
-            this.y = game.config.height - borderUISize - borderPadding*3;
-            this.anims.remove('mole_up');
-            this.anims.create({
-                key: 'mole_side',
-                frames: this.anims.generateFrameNumbers(this.molesheet,{start: 0, end: 3, first: 0}),
-                frameRate: 4,
-                repeat: -1
-            });
-            this.anims.play('mole_side');
-            
-            
-        }
-        */
     }
 
     //resets rocket to the ground

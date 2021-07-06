@@ -10,6 +10,10 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        //keys
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+
         //add background
         this.dirt = this.add.tileSprite(0,0,640,480, 'dirt').setOrigin(0,0);
 
