@@ -1,17 +1,17 @@
 // Rocket Prefab
 class Ship extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame) {
+    constructor(scene, x, y, texture, frame, maxHeight) {
         super(scene, x, y, texture, frame);
         //this.sfxRocket = scene.sound.add('sfx_digup');
         //add object to scene
         scene.add.existing(this);
-        this.SKIM = 0;
-        this.JUMP = 1;
-        this.DIVE = 2;
+        this.hasControl = true;
 
-        this.action = this.SKIM;
-        this.moveSpeed = 2;
+        this.maxHeight = maxHeight
+        this.moveSpeed = 3;
+        this.gravity = 1;
         this.molesheet = texture;
+        this.startHeight = y;
         /*
         this.anims.create({
             key: 'mole_side',
@@ -24,21 +24,30 @@ class Ship extends Phaser.GameObjects.Sprite {
     }
 
     update() {
-
-        if (this.action == this.SKIM) {
-            if (keyLEFT.isDown && this.x >= borderUISize + this.width) {
-                this.action = this.DIVE;
-            } else if (keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width) {
-                this.action = this.JUMP;
-            } 
+        if (this.y < this.startHeight - this.maxHeight || this.y > this.startHeight + this.maxHeight) {
+            this.hasControl = false;
+        } else if (this.y = this.startHeight) {
+            this.hasControl = true;
         }
 
-        if (this.action == this.JUMP) {
-            this.y += this.moveSpeed;
-        } else if (this.action == this.DIVE) {
-            this.y -= this.moveSpeed;
+        let velocity = 0;
+        console.log(velocity);
+
+        if (keyDOWN.isDown && this.hasControl) {
+            velocity += this.moveSpeed;
+        } else if (keyUP.isDown && this.hasControl) {
+            velocity -= this.moveSpeed;
         }
 
+        if (this.y > this.startHeight) {
+            console.log("gravity");
+            velocity -= this.gravity;
+        } else if (this.y < this.startHeight) {
+            velocity += this.gravity;
+            console.log("gravity");
+        }
+
+        this.y += velocity;
         /*
         //left/right movement
         if (!this.isFiring) {
