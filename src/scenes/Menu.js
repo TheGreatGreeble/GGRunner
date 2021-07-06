@@ -6,9 +6,12 @@ class Menu extends Phaser.Scene {
     preload() {
         // load audio
         //this.load.audio('sfx_select', './assets/sfx_select.wav');
+        this.load.image('background', './assets/mainMenu.png');
     }
 
     create() {
+        this.add.image(0,0, 'background').setOrigin(0, 0);
+
         let menuConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
@@ -31,6 +34,7 @@ class Menu extends Phaser.Scene {
         // define keys
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+
     }
 
     update() {
