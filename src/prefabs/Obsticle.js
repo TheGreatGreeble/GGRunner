@@ -9,15 +9,15 @@ class Obsticle extends Phaser.GameObjects.Sprite {
 
     update() {
         // moves left
-        this.x += this.moveSpeed;
+        this.x -= this.moveSpeed;
         //wrap around left to right
         if (this.x <= 0 - this.width) {
-            this.x  = game.config.width;
-            //this.reset();
+            //this.x  = game.config.width;
+            this.reset();
         }
     }
 
     reset() {
-        this.x  = game.config.width;
+        this.x = game.config.width;
     }
 }
