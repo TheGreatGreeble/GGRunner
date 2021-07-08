@@ -5,12 +5,7 @@ class Play extends Phaser.Scene {
 
     preload() {
         // load images/spritesheets
-<<<<<<< HEAD
         this.load.image('water', './assets/Water.png');
-=======
-        //this.load.image('ship','./assets/Spaceship.png');
-        //this.load.image('dirt', './assets/Looping Background Adjusted Water Height.png');
->>>>>>> d8d682ca0f83cec114dd7ec7220e17e9042d0d8a
         this.load.spritesheet('ship', './assets/Whale and Ship Sprite Sheet.png', {frameWidth: 250, frameHeight: 125, startFrame: 0,
             endFrame: 5});
         
