@@ -5,14 +5,9 @@ class Play extends Phaser.Scene {
 
     preload() {
         // load images/spritesheets
-        //this.load.image('ship','./assets/Spaceship.png');
-        this.load.image('water', './assets/Looping Background Adjusted Water Height.png');
+        this.load.image('ship','./assets/Spaceship.png');
+        this.load.image('water', './assets/loopingBackground.png');
 
-        //Load spritesheet
-        //this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0,
-            //endFrame: 9});
-        this.load.spritesheet('ship', './assets/Whale and Ship Sprite Sheet.png', {frameWidth: 250, frameHeight: 125, startFrame: 0,
-            endFrame: 5});
     }
 
     create() {
@@ -31,15 +26,10 @@ class Play extends Phaser.Scene {
         });
 
         //add player
-        this.p1ship = new Ship(this, game.config.width/4, game.config.height/2, 'sail').setOrigin(0.5,0);
-        //this.p1ship.frame = 0;
-        //mysprite = this.game.add.sprite(15, 30, 'ship');
-        //mysprite.frame = 3;
+        this.p1ship = new Ship(this, game.config.width/4, game.config.height/2, 'ship').setOrigin(0,0);
+  
 
 
-        //add obstacles
-        this.crate
-        //
     }
 
     update() {
