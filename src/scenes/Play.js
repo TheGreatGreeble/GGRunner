@@ -26,7 +26,7 @@ class Play extends Phaser.Scene {
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
 
         //add background
-        this.ocean = this.add.tileSprite(0,0,640,480, 'water').setOrigin(0,0);
+        this.ocean = this.add.tileSprite(0,0,640,480, 'dirt').setOrigin(0,0);
 
         //Animation config
         this.anims.create({
@@ -34,7 +34,7 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('ship', {start: 0, end: 5, first:0}),
             frameRate: 30
         });
-        
+
         this.anims.create({
             key: 'fly',
             frames: this.anims.generateFrameNumbers('seagull1', {start: 0, end: 2, first:0}),
@@ -71,7 +71,7 @@ class Play extends Phaser.Scene {
                     //spawn the obsticle if this is not the gap
                     
                     if (i != spawnGap) {
-                        this.obsticles.unshift(new Obsticle(this, game.config.width, spawnHeight, ((spawnHeight > game.config.width/2) ? 'obsticle1': 'seagull'), 0, game.settings.speed ));
+                        this.obsticles.unshift(new Obsticle(this, game.config.width, spawnHeight, ((spawnHeight > game.config.width/2) ? 'obsticle1': 'bird'), 0, game.settings.speed ));
                     }
 
                     //proportion the next spawnheight to number of objects per wave
@@ -102,7 +102,7 @@ class Play extends Phaser.Scene {
 
     update() {
         //update
-        this.dirt.tilePositionX += game.settings.speed;
+        this.ocean.tilePositionX += game.settings.speed;
         this.p1ship.update();
         //updates all obsticles, checks collision, and then deletes objects past the screen
         this.obsticles.forEach(function(item, index, array) {
