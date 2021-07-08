@@ -5,7 +5,6 @@ class Play extends Phaser.Scene {
 
     preload() {
         // load images/spritesheets
-        //this.load.image('ship','./assets/Spaceship.png');
         this.load.image('water', './assets/Water.png');
         this.load.spritesheet('ship', './assets/Whale and Ship Sprite Sheet.png', {frameWidth: 250, frameHeight: 125, startFrame: 0,
             endFrame: 5});
@@ -61,6 +60,5 @@ class Play extends Phaser.Scene {
     update() {
         this.ocean.tilePositionX += 4;
         this.p1ship.update();
-        //this.crate.update();
     }
 }
