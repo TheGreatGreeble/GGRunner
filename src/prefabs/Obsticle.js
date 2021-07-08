@@ -4,15 +4,16 @@ class Obsticle extends Phaser.GameObjects.Sprite {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         this.points = pointValue;
-        this.moveSpeed = game.settings.spaceshipSpeed;
+        this.moveSpeed = game.settings.foodSpeed;
     }
 
     update() {
         // moves left
-        this.x -= this.moveSpeed;
+        this.x += this.moveSpeed;
         //wrap around left to right
         if (this.x <= 0 - this.width) {
             this.x  = game.config.width;
+            //this.reset();
         }
     }
 

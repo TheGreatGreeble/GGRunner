@@ -7,12 +7,14 @@ class Play extends Phaser.Scene {
         // load images/spritesheets
         //this.load.image('ship','./assets/Spaceship.png');
         this.load.image('water', './assets/Looping Background Adjusted Water Height.png');
-
-        //Load spritesheet
-        //this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0,
-            //endFrame: 9});
         this.load.spritesheet('ship', './assets/Whale and Ship Sprite Sheet.png', {frameWidth: 250, frameHeight: 125, startFrame: 0,
             endFrame: 5});
+
+        //load obstacles
+        this.load.image('crate', './assets/ResizedCrate.png');
+
+        //load Soundtrack
+        this.load.audio('sfx_st', './assets/Tristan Lohengrin - Happy 8bit Loop 01.wav')
     }
 
     create() {
@@ -31,19 +33,25 @@ class Play extends Phaser.Scene {
         });
 
         //add player
-        this.p1ship = new Ship(this, game.config.width/4, game.config.height/2, 'sail').setOrigin(0.5,0);
+        this.p1ship = new Ship(this, game.config.width/4, game.config.height/2, 'sail').setOrigin(0,0);
         //this.p1ship.frame = 0;
         //mysprite = this.game.add.sprite(15, 30, 'ship');
         //mysprite.frame = 3;
 
 
         //add obstacles
-        this.crate
+        this.crate = new Obsticle(this, 0, 0, 'crate').setOrigin(0,0);
         //
+
+        //Play soundtrack///////(New)///////////////////////////////
+        var music = this.sound.add('sfx_st');
+        music.setLoop(true);
+        music.play();
     }
 
     update() {
         this.ocean.tilePositionX += 4;
         this.p1ship.update();
+        //this.crate.update();
     }
 }
