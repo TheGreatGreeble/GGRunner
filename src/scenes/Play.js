@@ -5,7 +5,12 @@ class Play extends Phaser.Scene {
 
     preload() {
         // load images/spritesheets
+<<<<<<< HEAD
         this.load.image('water', './assets/Water.png');
+=======
+        //this.load.image('ship','./assets/Spaceship.png');
+        //this.load.image('dirt', './assets/Looping Background Adjusted Water Height.png');
+>>>>>>> d8d682ca0f83cec114dd7ec7220e17e9042d0d8a
         this.load.spritesheet('ship', './assets/Whale and Ship Sprite Sheet.png', {frameWidth: 250, frameHeight: 125, startFrame: 0,
             endFrame: 5});
         
@@ -13,8 +18,8 @@ class Play extends Phaser.Scene {
             endFrame: 2});
 
         //load obstacles
-        this.load.image('crate', './assets/ResizedCrate.png');
-
+        this.load.image('obsticle1', './assets/ResizedCrate.png');
+        this.load.image('seagull', './assets/Spaceship.png');
         //load Soundtrack
         this.load.audio('sfx_st', './assets/Tristan Lohengrin - Happy 8bit Loop 01.wav')
     }
@@ -25,7 +30,7 @@ class Play extends Phaser.Scene {
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
 
         //add background
-        this.ocean = this.add.tileSprite(0,0,640,480, 'water').setOrigin(0,0);
+        this.ocean = this.add.tileSprite(0,0,640,480, 'dirt').setOrigin(0,0);
 
         //Animation config
         this.anims.create({
@@ -36,29 +41,101 @@ class Play extends Phaser.Scene {
 
         this.anims.create({
             key: 'fly',
-            frames: this.anims.generateFrameNumbers('bird', {start: 0, end: 2, first:0}),
+            frames: this.anims.generateFrameNumbers('seagull1', {start: 0, end: 2, first:0}),
             frameRate: 30
         });
-
-
-        //add player
-        this.p1ship = new Ship(this, game.config.width/6 + 62.5, game.config.height/2 - 60, 'ship').setOrigin(0,0);
-
-
-        //add obstacles
-        this.crate = new Obsticle(this, game.config.width - 50, game.config.height/2 - 30, 'crate').setOrigin(0,0);
-
-        //add birds
-        this.bird01 = new Bird(this, game.config.width - 75, 20 , 'bird').setOrigin(0, 0);
-
         //Play soundtrack///////(New)///////////////////////////////
         var music = this.sound.add('sfx_st');
         music.setLoop(true);
         music.play();
+
+        //add player
+        this.p1ship = new Ship(this, game.config.width/4, game.config.height/2, 'ship', 60).setOrigin(0.5,0);
+
+
+        //
+
+        
+        //set up list of obsticles and seagulls
+        this.obsticles = [];
+        //add wave array
+        //this.waveArray = [];
+
+        //add timer to spawn waves of obsticles
+        this.clock = this.time.addEvent({
+            delay: 1500,
+            loop: true,
+            callback: () => {
+
+                //determine which obsticle won't spawn, then the first height to spawn an obsticle
+                let spawnGap = Math.round(Math.random() * game.settings.obsPerWave);
+                let spawnHeight = game.config.height/10;
+                
+                for (let i = 0; i < game.settings.obsPerWave; i++) {
+                    //spawn the obsticle if this is not the gap
+                    
+                    if (i != spawnGap) {
+                        this.obsticles.unshift(new Obsticle(this, game.config.width, spawnHeight, ((spawnHeight > game.config.width/2) ? 'obsticle1': 'bird'), 0, game.settings.speed ));
+                    }
+
+                    //proportion the next spawnheight to number of objects per wave
+                    spawnHeight += (game.config.height)/(game.settings.obsPerWave)
+
+                }
+                /*
+                //spawn a new wave and delete old ones
+                this.waveArray.unshift( new Wave(this, "wave", game.config.width, 0) );
+                if (this.waveArray.length > 5) {
+                    this.waveArray.pop();
+                }
+                */
+            }
+        })
+
+        // add Score and score timer
+        this.score = 0;
+        this.clock = this.time.addEvent({
+            delay: 1000,
+            repeat: true,
+            callback: () => {
+                //add to the score
+                this.score += 100;
+            }
+        })
     }
 
     update() {
-        this.ocean.tilePositionX += 4;
+        //update
+        this.ocean.tilePositionX += game.settings.speed;
         this.p1ship.update();
+<<<<<<< HEAD
+=======
+        //updates all obsticles, checks collision, and then deletes objects past the screen
+        this.obsticles.forEach(function(item, index, array) {
+
+            item.update();
+            /* if (checkCollision(p1ship, item)) {
+
+            } */
+            if (item.x < 0 - item.width) {
+                array.pop();
+            }
+        });
+        //this.waveArray.forEach(function(item, index, array) {
+        //    item.update();
+        //});
+        
+    }
+
+    checkCollision(ship, obsticle) {
+        if (ship.x < obsticle.x + obsticle.width &&
+            ship.x + ship.width > obsticle.x &&
+            ship.y < obsticle.y + obsticle.height &&
+            ship.y + ship.height > obsticle.y) {
+                return true;
+            } else {
+                return false;
+            }
+>>>>>>> d8d682ca0f83cec114dd7ec7220e17e9042d0d8a
     }
 }

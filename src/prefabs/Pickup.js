@@ -1,5 +1,5 @@
-//Obsticle prefab
-class Obsticle extends Phaser.GameObjects.Sprite {
+//Pickup prefab
+class Pickup extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, texture, frame, speed) {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
@@ -9,6 +9,11 @@ class Obsticle extends Phaser.GameObjects.Sprite {
     update() {
         // moves left
         this.x -= this.moveSpeed;
+
+        if (this.x < 0) {
+            this.destroy();
+        }
+        
     }
 
     reset() {
