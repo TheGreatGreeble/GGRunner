@@ -9,6 +9,9 @@ class Play extends Phaser.Scene {
         this.load.image('dirt', './assets/Looping Background Adjusted Water Height.png');
         this.load.spritesheet('ship', './assets/Whale and Ship Sprite Sheet.png', {frameWidth: 250, frameHeight: 125, startFrame: 0,
             endFrame: 5});
+        
+        this.load.spritesheet('bird', './assets/Seagull Sprite Sheet.png',{frameWidth: 100, frameHeight: 100, startFrame: 0,
+            endFrame: 2});
 
         //load obstacles
         this.load.image('obsticle1', './assets/ResizedCrate.png');
@@ -31,7 +34,12 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('ship', {start: 0, end: 5, first:0}),
             frameRate: 30
         });
-
+        
+        this.anims.create({
+            key: 'fly',
+            frames: this.anims.generateFrameNumbers('seagull1', {start: 0, end: 2, first:0}),
+            frameRate: 30
+        });
         //Play soundtrack///////(New)///////////////////////////////
         var music = this.sound.add('sfx_st');
         music.setLoop(true);
