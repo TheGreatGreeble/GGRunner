@@ -33,14 +33,14 @@ class Play extends Phaser.Scene {
         });
 
         //add player
-        this.p1ship = new Ship(this, game.config.width/4, game.config.height/2, 'sail').setOrigin(0,0);
+        this.p1ship = new Ship(this, game.config.width/6 + 62.5, game.config.height/2 - 60, 'ship').setOrigin(0,0);
         //this.p1ship.frame = 0;
         //mysprite = this.game.add.sprite(15, 30, 'ship');
         //mysprite.frame = 3;
 
 
         //add obstacles
-        this.crate = new Obsticle(this, 0, 0, 'crate').setOrigin(0,0);
+        this.crate = new Obsticle(this, game.config.width/2 , game.config.height, 'crate').setOrigin(0,0);
         //
 
         //Play soundtrack///////(New)///////////////////////////////
