@@ -42,17 +42,8 @@ class Menu extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(keyF)) {
           // easy mode
           game.settings = {
-            foodSpeed: 3,
-            gameTimer: 60    
-          }
-          //this.sound.play('sfx_select');
-          this.scene.start('playScene');    
-        }
-        if (Phaser.Input.Keyboard.JustDown(keyDOWN)) {
-          // hard mode
-          game.settings = {
-            foodSpeed: 4,
-            gameTimer: 45    
+            obsPerWave: 4,
+            speed: 4
           }
           //this.sound.play('sfx_select');
           this.scene.start('playScene');    
