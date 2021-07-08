@@ -5,10 +5,16 @@ class Play extends Phaser.Scene {
 
     preload() {
         // load images/spritesheets
-        this.load.image('ship','./assets/Spaceship.png');
-        this.load.image('obsticle1', './assets/Spaceship.png');
+        //this.load.image('ship','./assets/Spaceship.png');
+        this.load.image('dirt', './assets/Looping Background Adjusted Water Height.png');
+        this.load.spritesheet('ship', './assets/Whale and Ship Sprite Sheet.png', {frameWidth: 250, frameHeight: 125, startFrame: 0,
+            endFrame: 5});
+
+        //load obstacles
+        this.load.image('obsticle1', './assets/ResizedCrate.png');
         this.load.image('seagull', './assets/Spaceship.png');
-        this.load.image('dirt', './assets/dirt.png');
+        //load Soundtrack
+        this.load.audio('sfx_st', './assets/Tristan Lohengrin - Happy 8bit Loop 01.wav')
     }
 
     create() {
@@ -17,7 +23,19 @@ class Play extends Phaser.Scene {
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
 
         //add background
-        this.dirt = this.add.tileSprite(0,0,640,480, 'dirt').setOrigin(0,0);
+        this.ocean = this.add.tileSprite(0,0,640,480, 'water').setOrigin(0,0);
+
+        //Animation config
+        this.anims.create({
+            key: 'sail',
+            frames: this.anims.generateFrameNumbers('ship', {start: 0, end: 5, first:0}),
+            frameRate: 30
+        });
+
+        //Play soundtrack///////(New)///////////////////////////////
+        var music = this.sound.add('sfx_st');
+        music.setLoop(true);
+        music.play();
 
         //add player
         this.p1ship = new Ship(this, game.config.width/4, game.config.height/2, 'ship', 60).setOrigin(0.5,0);
