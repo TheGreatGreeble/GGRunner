@@ -5,8 +5,8 @@ class Play extends Phaser.Scene {
 
     preload() {
         // load images/spritesheets
-        this.load.image('water', './assets/Water.png');
-        this.load.spritesheet('ship', './assets/Whale and Ship Sprite Sheet.png', {frameWidth: 250, frameHeight: 125, startFrame: 0,
+        this.load.image('water', './assets/Fixed Background.png');
+        this.load.spritesheet('ship', './assets/ Smaller Whale and Ship Sprite Sheet.png', {frameWidth: 250, frameHeight: 125, startFrame: 0,
             endFrame: 5});
         
         this.load.spritesheet('bird', './assets/Seagull Sprite Sheet.png',{frameWidth: 100, frameHeight: 100, startFrame: 0,
