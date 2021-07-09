@@ -25,7 +25,7 @@ class Play extends Phaser.Scene {
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
 
         //add background
-        this.ocean = this.add.tileSprite(0,0,640,480, 'dirt').setOrigin(0,0);
+        this.ocean = this.add.tileSprite(0,0,640,480, 'water').setOrigin(0,0);
 
         //Animation config
         this.anims.create({
@@ -39,6 +39,7 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('seagull1', {start: 0, end: 2, first:0}),
             frameRate: 30
         });
+        
         //Play soundtrack///////(New)///////////////////////////////
         var music = this.sound.add('sfx_st');
         music.setLoop(true);
@@ -103,8 +104,6 @@ class Play extends Phaser.Scene {
         //update
         this.ocean.tilePositionX += game.settings.speed;
         this.p1ship.update();
-<<<<<<< HEAD
-=======
         //updates all obsticles, checks collision, and then deletes objects past the screen
         this.obsticles.forEach(function(item, index, array) {
 
@@ -128,9 +127,9 @@ class Play extends Phaser.Scene {
             ship.y < obsticle.y + obsticle.height &&
             ship.y + ship.height > obsticle.y) {
                 return true;
-            } else {
+        } else {
                 return false;
-            }
->>>>>>> d8d682ca0f83cec114dd7ec7220e17e9042d0d8a
+        }
+        
     }
 }
